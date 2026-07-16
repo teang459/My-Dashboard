@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Souphattra Hotel Vientiane | Marketing Dashboard</title>
+    <title>Souphattra | Marketing Dashboard</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -328,8 +328,24 @@
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">All Pending Tasks</h3>
                             <span class="text-xs bg-gold-100 text-gold-700 px-3 py-1 rounded-full font-bold uppercase tracking-wide">Prioritized by Deadline</span>
                         </div>
-                        <div id="todayTaskList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
-                            <!-- Populated by JS -->
+                        <div class="border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                            <div class="overflow-x-auto overflow-y-auto max-h-[400px] custom-scrollbar">
+                                <table class="w-full text-left text-sm whitespace-nowrap">
+                                    <thead class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+                                        <tr>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500 w-16">Priority</th>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">Task Name</th>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">Category</th>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">Assignee</th>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">Due Date</th>
+                                            <th class="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500 text-right">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="todayTaskList" class="divide-y divide-slate-50 dark:divide-slate-800/50 bg-white dark:bg-slate-900">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -661,7 +677,8 @@
 
         let chartInstances = {};
         let currentSort = { type: '', column: '', asc: true };
-        let currentDate = new Date(); // Fixed context date
+        // Automatically uses the local system time and timezone 
+let currentDate = new Date(); // Fixed context date
 
         const OPTIONS = {
             platforms: ['Facebook', 'Instagram', 'TikTok', 'LinkedIn'],
@@ -957,7 +974,7 @@
             });
 
             if(pendingTasks.length === 0) {
-                list.innerHTML = '<div class="col-span-full text-center text-slate-500 py-6 font-medium">No pending tasks. Great job!</div>';
+                list.innerHTML = '<tr><td colspan="6" class="text-center text-slate-500 py-8 font-medium">No pending tasks. Great job!</td></tr>';
                 return;
             }
 
@@ -986,36 +1003,42 @@
                 }
 
                 const typeIconMap = {
-                    'social': '<i class="fas fa-mobile-screen text-blue-500"></i>',
-                    'promotions': '<i class="fas fa-palette text-green-500"></i>',
-                    'website': '<i class="fas fa-laptop-code text-orange-500"></i>',
-                    'events': '<i class="fas fa-ticket-alt text-purple-500"></i>',
-                    'requests': '<i class="fas fa-inbox text-red-500"></i>',
-                    'memos': '<i class="fas fa-file-signature text-slate-500"></i>'
+                    'social': '<i class="fas fa-mobile-screen text-blue-500 w-4 text-center"></i>',
+                    'promotions': '<i class="fas fa-palette text-green-500 w-4 text-center"></i>',
+                    'website': '<i class="fas fa-laptop-code text-orange-500 w-4 text-center"></i>',
+                    'events': '<i class="fas fa-ticket-alt text-purple-500 w-4 text-center"></i>',
+                    'requests': '<i class="fas fa-inbox text-red-500 w-4 text-center"></i>',
+                    'memos': '<i class="fas fa-file-signature text-slate-500 w-4 text-center"></i>'
                 };
                 
+                let trClass = 'hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors group';
+                if (isOverdue) trClass += ' bg-red-50/30 dark:bg-red-900/10';
+
+                let typeDisplay = task._type === 'promotions' ? 'Promo' : task._type.charAt(0).toUpperCase() + task._type.slice(1);
+                
                 list.innerHTML += `
-                    <div class="relative flex flex-col p-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/50 dark:hover:bg-slate-800 transition-colors rounded-2xl border ${isOverdue ? 'border-red-200 dark:border-red-900/50 shadow-sm shadow-red-500/10' : 'border-slate-100 dark:border-slate-700/50'}">
-                        <div class="absolute top-3 right-3 w-6 h-6 bg-gold-100 text-gold-700 dark:bg-gold-500/20 dark:text-gold-400 rounded-md flex items-center justify-center text-xs font-black border border-gold-200 dark:border-gold-500/30">
-                            ${priorityLetter}
-                        </div>
-                        <div class="flex items-start gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm flex-shrink-0">
-                                ${typeIconMap[task._type] || '<i class="fas fa-tasks text-slate-400"></i>'}
+                    <tr class="${trClass}">
+                        <td class="px-4 py-3">
+                            <div class="w-7 h-7 bg-gold-100 text-gold-700 dark:bg-gold-500/20 dark:text-gold-400 rounded-md flex items-center justify-center text-xs font-black border border-gold-200 dark:border-gold-500/30">
+                                ${priorityLetter}
                             </div>
-                            <div class="flex-1 min-w-0 pr-6">
-                                <h4 class="font-bold text-slate-900 dark:text-white text-sm truncate" title="${task._title}">${task._title}</h4>
-                                <p class="text-xs text-slate-500 capitalize mt-0.5">${task._type === 'promotions' ? 'promo artwork' : task._type} &bull; ${task.assigned || 'Unassigned'}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-200 dark:border-slate-700/50">
-                            <div class="flex flex-col">
-                                <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-0.5">Due Date</span>
-                                <span class="text-xs ${dateColor} flex items-center gap-1.5"><i class="fas fa-clock"></i> ${task._dueDateStr}</span>
-                            </div>
+                        </td>
+                        <td class="px-4 py-3 font-bold text-slate-900 dark:text-white max-w-[250px] truncate" title="${task._title}">
+                            ${task._title}
+                        </td>
+                        <td class="px-4 py-3 text-xs font-medium text-slate-500">
+                            <span class="flex items-center gap-1.5">${typeIconMap[task._type] || ''} ${typeDisplay}</span>
+                        </td>
+                        <td class="px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                            ${task.assigned || 'Unassigned'}
+                        </td>
+                        <td class="px-4 py-3 text-xs ${dateColor}">
+                            <span class="flex items-center gap-1.5"><i class="fas fa-clock"></i> ${task._dueDateStr}</span>
+                        </td>
+                        <td class="px-4 py-3 text-right">
                             ${statusBadge}
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 `;
             });
         }
