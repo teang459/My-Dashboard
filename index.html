@@ -238,38 +238,98 @@
 
                     <!-- KPI Cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
-                        <div class="kpi-card bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition text-6xl text-slate-900 dark:text-white"><i class="fas fa-layer-group"></i></div>
-                            <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-tasks"></i></div>
-                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Tasks</div>
-                            <div id="kpi-total" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                        
+                        <!-- 1. Total Tasks -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group-hover:border-slate-300 dark:group-hover:border-slate-600 transition-colors">
+                                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition text-6xl text-slate-900 dark:text-white"><i class="fas fa-layer-group"></i></div>
+                                <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-tasks"></i></div>
+                                <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Tasks</div>
+                                <div id="kpi-total" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                            </div>
+                            <!-- Hover Tooltip -->
+                            <div class="absolute left-0 sm:left-auto md:left-0 top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">All Tasks</h4>
+                                <div id="list-total" class="flex flex-col gap-1"></div>
+                            </div>
                         </div>
-                        <div class="kpi-card bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition text-6xl text-green-500"><i class="fas fa-check-circle"></i></div>
-                            <div class="w-12 h-12 bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-check"></i></div>
-                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Completed</div>
-                            <div id="kpi-completed" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                        
+                        <!-- 2. Completed -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group-hover:border-green-300 dark:group-hover:border-green-600/50 transition-colors">
+                                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition text-6xl text-green-500"><i class="fas fa-check-circle"></i></div>
+                                <div class="w-12 h-12 bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-check"></i></div>
+                                <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Completed</div>
+                                <div id="kpi-completed" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                            </div>
+                            <div class="absolute left-0 sm:-left-20 md:left-0 top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">Completed</h4>
+                                <div id="list-completed" class="flex flex-col gap-1"></div>
+                            </div>
                         </div>
-                        <div class="kpi-card bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
-                            <div class="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-spinner fa-spin-pulse"></i></div>
-                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Pending Tasks</div>
-<div id="kpi-progress" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                        
+                        <!-- 3. In Progress -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group-hover:border-blue-300 dark:group-hover:border-blue-600/50 transition-colors">
+                                <div class="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-spinner fa-spin-pulse"></i></div>
+                                <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">In Progress</div>
+                                <div id="kpi-progress" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                            </div>
+                            <div class="absolute left-0 sm:right-0 sm:left-auto md:left-0 top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">In Progress</h4>
+                                <div id="list-progress" class="flex flex-col gap-1"></div>
+                            </div>
                         </div>
-                        <div class="kpi-card bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
-                            <div class="w-12 h-12 bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-eye"></i></div>
-                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Approval</div>
-                            <div id="kpi-approval" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                        
+                        <!-- 4. Approval -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group-hover:border-orange-300 dark:group-hover:border-orange-600/50 transition-colors">
+                                <div class="w-12 h-12 bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-eye"></i></div>
+                                <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Approval</div>
+                                <div id="kpi-approval" class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">0</div>
+                            </div>
+                            <div class="absolute left-0 xl:right-0 xl:left-auto top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-orange-500 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">Pending Approval</h4>
+                                <div id="list-approval" class="flex flex-col gap-1"></div>
+                            </div>
                         </div>
-                        <div class="kpi-card bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
-                            <div class="w-12 h-12 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-exclamation-triangle"></i></div>
-                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Overdue</div>
-                            <div id="kpi-overdue" class="text-4xl font-bold text-red-600 dark:text-red-400 tracking-tight">0</div>
+                        
+                        <!-- 5. Overdue -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 relative overflow-hidden group-hover:border-red-300 dark:group-hover:border-red-600/50 transition-colors">
+                                <div class="w-12 h-12 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center text-xl mb-4"><i class="fas fa-exclamation-triangle"></i></div>
+                                <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Overdue</div>
+                                <div id="kpi-overdue" class="text-4xl font-bold text-red-600 dark:text-red-400 tracking-tight">0</div>
+                            </div>
+                            <div class="absolute left-0 sm:right-0 sm:left-auto top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">Overdue Tasks</h4>
+                                <div id="list-overdue" class="flex flex-col gap-1"></div>
+                            </div>
                         </div>
-                        <div class="kpi-card bg-gradient-to-br from-gold-500 to-gold-600 p-6 rounded-3xl shadow-glow relative overflow-hidden text-white group">
-                            <div class="absolute -right-4 -bottom-4 opacity-20 text-8xl"><i class="fas fa-calendar-day"></i></div>
-                            <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-xl mb-4 backdrop-blur-sm"><i class="fas fa-bolt"></i></div>
-                            <div class="text-white/80 text-sm font-medium mb-1">Due Today</div>
-                            <div id="kpi-today" class="text-4xl font-bold tracking-tight">0</div>
+                        
+                        <!-- 6. Due Today -->
+                        <div class="relative group z-10 hover:z-50">
+                            <div class="kpi-card h-full bg-gradient-to-br from-gold-500 to-gold-600 p-6 rounded-3xl shadow-glow relative overflow-hidden text-white group-hover:shadow-lg group-hover:shadow-gold-500/40 transition-shadow">
+                                <div class="absolute -right-4 -bottom-4 opacity-20 text-8xl"><i class="fas fa-calendar-day"></i></div>
+                                <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-xl mb-4 backdrop-blur-sm"><i class="fas fa-bolt"></i></div>
+                                <div class="text-white/80 text-sm font-medium mb-1">Due Today</div>
+                                <div id="kpi-today" class="text-4xl font-bold tracking-tight">0</div>
+                            </div>
+                            <div class="absolute right-0 top-[105%] w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-4 max-h-64 overflow-y-auto custom-scrollbar">
+                                <h4 class="text-xs font-bold text-gold-500 uppercase tracking-wider mb-2 pb-2 border-b border-slate-100 dark:border-slate-800">Due Today</h4>
+                                <div id="list-today" class="flex flex-col gap-1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Priority List -->
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-soft border border-slate-100 dark:border-slate-800 my-6 lg:my-8">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">All Pending Tasks</h3>
+                            <span class="text-xs bg-gold-100 text-gold-700 px-3 py-1 rounded-full font-bold uppercase tracking-wide">Prioritized by Deadline</span>
+                        </div>
+                        <div id="todayTaskList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
+                            <!-- Populated by JS -->
                         </div>
                     </div>
 
@@ -601,8 +661,7 @@
 
         let chartInstances = {};
         let currentSort = { type: '', column: '', asc: true };
-        // Automatically uses the local system time and timezone 
-let currentDate = new Date(); // Fixed context date
+        let currentDate = new Date('2026-07-15T00:00:00'); // Fixed context date
 
         const OPTIONS = {
             platforms: ['Facebook', 'Instagram', 'TikTok', 'LinkedIn'],
@@ -677,6 +736,7 @@ let currentDate = new Date(); // Fixed context date
 
         function renderAll() {
             renderDashboardCards();
+            renderTodayTasks();
             if(document.getElementById('page-dashboard').classList.contains('active')) renderCharts();
             ['social', 'promotions', 'website', 'events', 'requests', 'memos'].forEach(renderTable);
             renderSettings();
@@ -793,47 +853,172 @@ let currentDate = new Date(); // Fixed context date
         }
 
         function renderDashboardCards() {
-    let total = 0, completed = 0, inProgress = 0, approval = 0, overdue = 0;
-    
-    // Fix: Adjust the ISO string to account for your local timezone offset
-    const offset = currentDate.getTimezoneOffset() * 60000;
-    const localISODate = (new Date(currentDate - offset)).toISOString().split('T')[0];
-    let todayStr = localISODate; 
-    let todayCount = 0;
-    
-    Object.keys(appState).forEach(key => {
-        if (Array.isArray(appState[key])) {
-            appState[key].forEach(item => {
-                total++;
-                let stat = item.status || '';
-                
-                // 1. Identify if the task is completely finished
-                let isDone = stat.includes('Completed') || stat.includes('Published') || stat.includes('Circulated');
-                
-                if (isDone) {
-                    completed++;
-                } else {
-                    // 2. If it is NOT done, it counts as a Pending Task
-                    inProgress++;
+            let total = 0, completed = 0, inProgress = 0, approval = 0, overdue = 0, todayStr = currentDate.toISOString().split('T')[0], todayCount = 0;
+            
+            // Arrays to hold the task HTML for the hover tooltips
+            let lists = { total: [], completed: [], progress: [], approval: [], overdue: [], today: [] };
+            
+            // Map keys to clean abbreviations for the tooltips
+            const labelMap = { social: 'SOC', promotions: 'PRM', website: 'WEB', events: 'EVT', requests: 'REQ', memos: 'MEM' };
+
+            Object.keys(appState).forEach(key => {
+                if (Array.isArray(appState[key])) {
+                    appState[key].forEach(item => {
+                        let stat = item.status || '';
+                        let isCompleted = stat.includes('Completed') || stat.includes('Published');
+                        let isOverdue = item.dueDate && item.dueDate < todayStr && !isCompleted;
+                        let isToday = item.dueDate === todayStr;
+
+                        // Build string for tooltip
+                        let title = item.title || item.promotion || item.task || item.event || item.request || item.subject || 'Unnamed Task';
+                        let typeLabel = labelMap[key] || 'TSK';
+                        let textColor = isOverdue ? 'text-red-500 font-medium' : 'text-slate-600 dark:text-slate-300';
+                        
+                        let taskHtml = `<div class="text-[11px] py-1.5 border-b border-slate-50 dark:border-slate-800/50 last:border-0 flex gap-2">
+                            <span class="font-bold text-slate-400 dark:text-slate-500 flex-shrink-0">[${typeLabel}]</span> 
+                            <span class="${textColor} truncate" title="${title}">${title}</span>
+                        </div>`;
+
+                        total++;
+                        lists.total.push(taskHtml);
+
+                        if (isCompleted) {
+                            completed++;
+                            lists.completed.push(taskHtml);
+                        }
+                        if (stat.includes('Progress') || stat.includes('Designing')) {
+                            inProgress++;
+                            lists.progress.push(taskHtml);
+                        }
+                        if (stat.includes('Approval')) {
+                            approval++;
+                            lists.approval.push(taskHtml);
+                        }
+                        if (isOverdue) {
+                            overdue++;
+                            lists.overdue.push(taskHtml);
+                        }
+                        if (isToday) {
+                            todayCount++;
+                            lists.today.push(taskHtml);
+                        }
+                    });
                 }
+            });
+
+            document.getElementById('kpi-total').innerText = total;
+            document.getElementById('kpi-completed').innerText = completed;
+            document.getElementById('kpi-progress').innerText = inProgress;
+            document.getElementById('kpi-approval').innerText = approval;
+            document.getElementById('kpi-overdue').innerText = overdue;
+            document.getElementById('kpi-today').innerText = todayCount;
+
+            // Inject the data into the hover dropdowns
+            const populateList = (id, arr) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = arr.length > 0 
+                        ? arr.join('') 
+                        : '<div class="text-[11px] text-slate-400 py-2 italic">No tasks in this category.</div>';
+                }
+            };
+
+            populateList('list-total', lists.total);
+            populateList('list-completed', lists.completed);
+            populateList('list-progress', lists.progress);
+            populateList('list-approval', lists.approval);
+            populateList('list-overdue', lists.overdue);
+            populateList('list-today', lists.today);
+        }
+
+        function renderTodayTasks() {
+            const list = document.getElementById('todayTaskList');
+            if(!list) return;
+            list.innerHTML = '';
+            let pendingTasks = [];
+            let todayStr = currentDate.toISOString().split('T')[0];
+
+            Object.keys(appState).forEach(key => {
+                if(Array.isArray(appState[key])) {
+                    appState[key].forEach(item => {
+                        let stat = item.status || '';
+                        // Include ALL tasks that are not Completed or Published
+                        if(!stat.includes('Completed') && !stat.includes('Published')) {
+                            pendingTasks.push({
+                                ...item,
+                                _type: key,
+                                _title: item.title || item.promotion || item.task || item.event || item.request || item.subject,
+                                _priority: item.priority || 'Normal',
+                                _dueDateStr: item.dueDate || 'No Date'
+                            });
+                        }
+                    });
+                }
+            });
+
+            if(pendingTasks.length === 0) {
+                list.innerHTML = '<div class="col-span-full text-center text-slate-500 py-6 font-medium">No pending tasks. Great job!</div>';
+                return;
+            }
+
+            // Sort by Due Date (Earliest First)
+            pendingTasks.sort((a, b) => {
+                let dateA = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+                let dateB = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+                return dateA - dateB;
+            });
+
+            pendingTasks.forEach((task, index) => {
+                const statusBadge = badge(task.status);
+                const isOverdue = task.dueDate && task.dueDate < todayStr;
+                const isToday = task.dueDate === todayStr;
                 
-                // 3. Keep tracking approvals separately
-                if (stat.includes('Approval')) approval++;
+                let dateColor = 'text-slate-500';
+                if(isOverdue) dateColor = 'text-red-500 font-bold';
+                else if(isToday) dateColor = 'text-orange-500 font-bold';
+
+                // Calculate Priority Letter (A, B, C... Z, AA, AB...)
+                let temp = index;
+                let priorityLetter = '';
+                while (temp >= 0) {
+                    priorityLetter = String.fromCharCode(65 + (temp % 26)) + priorityLetter;
+                    temp = Math.floor(temp / 26) - 1;
+                }
+
+                const typeIconMap = {
+                    'social': '<i class="fas fa-mobile-screen text-blue-500"></i>',
+                    'promotions': '<i class="fas fa-palette text-green-500"></i>',
+                    'website': '<i class="fas fa-laptop-code text-orange-500"></i>',
+                    'events': '<i class="fas fa-ticket-alt text-purple-500"></i>',
+                    'requests': '<i class="fas fa-inbox text-red-500"></i>',
+                    'memos': '<i class="fas fa-file-signature text-slate-500"></i>'
+                };
                 
-                // 4. Overdue and Due Today calculations using the corrected local date
-                if (item.dueDate && item.dueDate < todayStr && !isDone) overdue++;
-                if (item.dueDate === todayStr) todayCount++;
+                list.innerHTML += `
+                    <div class="relative flex flex-col p-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/50 dark:hover:bg-slate-800 transition-colors rounded-2xl border ${isOverdue ? 'border-red-200 dark:border-red-900/50 shadow-sm shadow-red-500/10' : 'border-slate-100 dark:border-slate-700/50'}">
+                        <div class="absolute top-3 right-3 w-6 h-6 bg-gold-100 text-gold-700 dark:bg-gold-500/20 dark:text-gold-400 rounded-md flex items-center justify-center text-xs font-black border border-gold-200 dark:border-gold-500/30">
+                            ${priorityLetter}
+                        </div>
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm flex-shrink-0">
+                                ${typeIconMap[task._type] || '<i class="fas fa-tasks text-slate-400"></i>'}
+                            </div>
+                            <div class="flex-1 min-w-0 pr-6">
+                                <h4 class="font-bold text-slate-900 dark:text-white text-sm truncate" title="${task._title}">${task._title}</h4>
+                                <p class="text-xs text-slate-500 capitalize mt-0.5">${task._type === 'promotions' ? 'promo artwork' : task._type} &bull; ${task.assigned || 'Unassigned'}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-200 dark:border-slate-700/50">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-0.5">Due Date</span>
+                                <span class="text-xs ${dateColor} flex items-center gap-1.5"><i class="fas fa-clock"></i> ${task._dueDateStr}</span>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                    </div>
+                `;
             });
         }
-    });
-
-    document.getElementById('kpi-total').innerText = total;
-    document.getElementById('kpi-completed').innerText = completed;
-    document.getElementById('kpi-progress').innerText = inProgress; // Now displays total pending
-    document.getElementById('kpi-approval').innerText = approval;
-    document.getElementById('kpi-overdue').innerText = overdue;
-    document.getElementById('kpi-today').innerText = todayCount;
-}
 
         function renderCharts() {
             const isDark = appState.theme === 'dark';
@@ -863,10 +1048,10 @@ let currentDate = new Date(); // Fixed context date
             chartInstances.cat = new Chart(document.getElementById('categoryChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['Social', 'Promos', 'Website', 'Events', 'Requests'],
+                    labels: ['Social', 'Promos', 'Website', 'Events', 'Requests', 'Memos'],
                     datasets: [{
-                        data: [appState.social.length, appState.promotions.length, appState.website.length, appState.events.length, appState.requests.length],
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'],
+                        data: [appState.social.length, appState.promotions.length, appState.website.length, appState.events.length, appState.requests.length, appState.memos.length],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#64748b'],
                         borderWidth: 0,
                         hoverOffset: 4
                     }]
@@ -919,13 +1104,43 @@ let currentDate = new Date(); // Fixed context date
             gradientGreen.addColorStop(0, 'rgba(16, 185, 129, 0.2)');
             gradientGreen.addColorStop(1, 'rgba(16, 185, 129, 0)');
 
+            // Calculate actual dynamic data for the last 6 months
+            const monthLabels = [];
+            const completedData = [0, 0, 0, 0, 0, 0];
+            const dueData = [0, 0, 0, 0, 0, 0];
+            
+            for(let i=5; i>=0; i--) {
+                let d = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+                monthLabels.push(d.toLocaleString('default', { month: 'short' }));
+            }
+
+            Object.keys(appState).forEach(key => {
+                if(Array.isArray(appState[key])) {
+                    appState[key].forEach(item => {
+                        if(!item.dueDate) return;
+                        let taskDate = new Date(item.dueDate);
+                        let monthDiff = (currentDate.getFullYear() - taskDate.getFullYear()) * 12 + (currentDate.getMonth() - taskDate.getMonth());
+                        
+                        // If task falls within the last 6 months
+                        if(monthDiff >= 0 && monthDiff <= 5) {
+                            let index = 5 - monthDiff;
+                            dueData[index]++; // Total tasks due this month
+                            let stat = item.status || '';
+                            if(stat.includes('Completed') || stat.includes('Published')) {
+                                completedData[index]++; // Total tasks completed this month
+                            }
+                        }
+                    });
+                }
+            });
+
             chartInstances.prog = new Chart(ctxProg, {
                 type: 'line',
                 data: {
-                    labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    labels: monthLabels,
                     datasets: [
-                        { label: 'Completed', data: [12, 19, 15, 25, 22, 10], borderColor: '#10b981', backgroundColor: gradientGreen, fill: true, tension: 0.4, borderWidth: 3, pointBackgroundColor: '#10b981', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
-                        { label: 'Added', data: [15, 22, 20, 28, 20, 15], borderColor: '#94a3b8', borderDash: [5,5], tension: 0.4, borderWidth: 2, pointRadius: 0 }
+                        { label: 'Completed', data: completedData, borderColor: '#10b981', backgroundColor: gradientGreen, fill: true, tension: 0.4, borderWidth: 3, pointBackgroundColor: '#10b981', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
+                        { label: 'Total Due', data: dueData, borderColor: '#94a3b8', borderDash: [5,5], tension: 0.4, borderWidth: 2, pointRadius: 0 }
                     ]
                 },
                 options: commonOptions
