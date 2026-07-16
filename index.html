@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Souphattra | Marketing Dashboard</title>
+    <title>Souphattra Hotel | Marketing Dashboard</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -677,8 +677,7 @@
 
         let chartInstances = {};
         let currentSort = { type: '', column: '', asc: true };
-        // Automatically uses the local system time and timezone 
-let currentDate = new Date(); // Fixed context date
+        let currentDate = new Date(); // Fixed context date
 
         const OPTIONS = {
             platforms: ['Facebook', 'Instagram', 'TikTok', 'LinkedIn'],
@@ -878,7 +877,8 @@ let currentDate = new Date(); // Fixed context date
             // Map keys to clean abbreviations for the tooltips
             const labelMap = { social: 'SOC', promotions: 'PRM', website: 'WEB', events: 'EVT', requests: 'REQ', memos: 'MEM' };
 
-            Object.keys(appState).forEach(key => {
+            const taskCategories = ['social', 'promotions', 'website', 'events', 'requests', 'memos'];
+            taskCategories.forEach(key => {
                 if (Array.isArray(appState[key])) {
                     appState[key].forEach(item => {
                         let stat = item.status || '';
@@ -955,7 +955,8 @@ let currentDate = new Date(); // Fixed context date
             let pendingTasks = [];
             let todayStr = currentDate.toISOString().split('T')[0];
 
-            Object.keys(appState).forEach(key => {
+            const taskCategories = ['social', 'promotions', 'website', 'events', 'requests', 'memos'];
+            taskCategories.forEach(key => {
                 if(Array.isArray(appState[key])) {
                     appState[key].forEach(item => {
                         let stat = item.status || '';
@@ -1137,7 +1138,8 @@ let currentDate = new Date(); // Fixed context date
                 monthLabels.push(d.toLocaleString('default', { month: 'short' }));
             }
 
-            Object.keys(appState).forEach(key => {
+            const taskCategories = ['social', 'promotions', 'website', 'events', 'requests', 'memos'];
+            taskCategories.forEach(key => {
                 if(Array.isArray(appState[key])) {
                     appState[key].forEach(item => {
                         if(!item.dueDate) return;
@@ -1186,7 +1188,8 @@ let currentDate = new Date(); // Fixed context date
         function checkNotifications() {
             let notifs = [];
             let todayStr = currentDate.toISOString().split('T')[0];
-            Object.keys(appState).forEach(key => {
+            const taskCategories = ['social', 'promotions', 'website', 'events', 'requests', 'memos'];
+            taskCategories.forEach(key => {
                 if(Array.isArray(appState[key])) {
                     appState[key].forEach(item => {
                         if (item.dueDate && item.dueDate < todayStr && !item.status.includes('Completed') && !item.status.includes('Published')) {
